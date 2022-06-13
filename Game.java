@@ -17,7 +17,7 @@ public class Game {
     public static void main(String[] args) {
         Game g = new Game();
         // handles continuous user input
-        while(g.createHands() == false) {
+        while(g.createHands()) {
             g.sortHands();
             g.determineWinner();
         }
@@ -53,14 +53,14 @@ public class Game {
 
     // create card objects and add into global arraylists.
     private boolean createHands(){
-        boolean exitGame = false;
+        boolean readInput = true;
         playerOneHand.clear();
         playerTwoHand.clear();
         // handles continuous user input
         String[] handAsArray = getHandAsArray(userInput());
         // if there is no more input, exit the game.
         if (handAsArray.length == 1) {
-            exitGame = true;
+            readInput = false;
         } else {
             // first 5 elements into p1HandAsArray
             String[] p1HandAsArray = getPlayerOneHand(handAsArray);
@@ -75,7 +75,7 @@ public class Game {
                 playerTwoHand.add(new Card(player.readRank(p2HandAsArray[i]), p2HandAsArray[i+1]));
             }
         }
-        return exitGame;
+        return readInput;
     }
 
     // sort hands into ascending order.
@@ -99,6 +99,26 @@ public class Game {
         else {return 0;}
     }
 
+    // Case where card combination and card rank are the same.
+	// Get highest card instead.
+	public boolean handleTie(ArrayList<Card> handOne, ArrayList<Card> handTwo) {
+		ArrayList<Integer> a = new ArrayList<Integer>();
+		ArrayList<Integer> b = new ArrayList<Integer>();
+		for (int i=0; i<handOne.size(); i++) {
+			int it1 = handOne.get(i).getRank();
+			int it2 = handTwo.get(i).getRank();
+			if (it1!=it2){
+				a.add(handOne.get(i).getRank());
+				b.add(handTwo.get(i).getRank());
+			}
+		}
+		if ((a.get(a.size()-1) > (b.get(b.size()-1)))) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
     // determine hand winner based on combination ranking.
     private void determineWinner() {
         int playerOneResult = evaluateHand(playerOneHand);
@@ -120,9 +140,6 @@ public class Game {
         if (playerOneResult == playerTwoResult) {
 
             // if combinations are the same, look at the card numbers instead.
-            // the combinations of the cards will always be at the front of the list
-            // so just compare the first elements of hand1 and hand2 and the winner is the 
-            // high card number
             if (playerOneHand.get(0).getRank() > playerTwoHand.get(0).getRank()) {
                 p1WinCounter++;
                 return;
@@ -131,9 +148,8 @@ public class Game {
                 return;
 
             // if combination and card number are the same, look to highest card.
-            // method in Player class.
             } else {
-                if (player.handleTie(playerOneHand, playerTwoHand)) {
+                if (handleTie(playerOneHand, playerTwoHand)) {
                     p1WinCounter++;
                 } else {
                     p2WinCounter++;

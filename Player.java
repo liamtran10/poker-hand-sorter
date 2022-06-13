@@ -233,26 +233,6 @@ public class Player {
 		return max;
     }
 
-	// Case where card combination and card rank are the same.
-	// Get highest card instead.
-	public boolean handleTie(ArrayList<Card> handOne, ArrayList<Card> handTwo) {
-		ArrayList<Integer> a = new ArrayList<Integer>();
-		ArrayList<Integer> b = new ArrayList<Integer>();
-		for (int i=0; i<handOne.size(); i++) {
-			int it1 = handOne.get(i).getRank();
-			int it2 = handTwo.get(i).getRank();
-			if (it1!=it2){
-				a.add(handOne.get(i).getRank());
-				b.add(handTwo.get(i).getRank());
-			}
-		}
-		if ((a.get(a.size()-1) > (b.get(b.size()-1)))) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
 	// Read card ranks as strings and return as integers.
 	public int readRank(String cardRank) {
 		switch (cardRank) {
