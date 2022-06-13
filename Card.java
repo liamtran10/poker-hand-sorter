@@ -14,6 +14,7 @@ public class Card implements Comparable<Card>{
         this.suit = suit;
     }
 
+    // setter and getter methods for card properties
     public int getRank() {
         return rank;
     }
@@ -22,12 +23,14 @@ public class Card implements Comparable<Card>{
         return suit;
     }
 
+    // compareTo method to sort cards in ascending order
     @Override
     public int compareTo(Card compareCards) {
         int compareRanks = (((Card)compareCards).getRank());
         return this.rank-compareRanks;
     }
 
+    // return card as string
     public String createCard() {
         return getRank() + getSuit();
     }

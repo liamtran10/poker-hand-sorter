@@ -9,7 +9,9 @@ public class Player {
         this.game = game;
     }
 
+	// T, J, Q, K, A in the same suit.
 	public boolean isRoyalFlush(ArrayList<Card> playerHand) {
+		// must be a flush, a straight, and begin with a 10
 		ArrayList<Card> storeCard = new ArrayList<Card>();
 		boolean rflush = false;
 		boolean flush = false;
@@ -41,7 +43,9 @@ public class Player {
 		return rflush;
 	}
 
+	// All 5 cards in consecutive value order with the same suit.
 	public boolean isStraightFlush(ArrayList<Card> playerHand) {
+		// must be a flush and a straight
 		ArrayList<Card> storeCard = new ArrayList<Card>();
 		boolean sflush = false;
 		boolean flush = false;
@@ -73,8 +77,9 @@ public class Player {
 		return sflush;
 	}
 
-
+	// Four cards of the same value.
 	public boolean isFourOfAKind(ArrayList<Card> playerHand) {
+		// must have four cards of the same rank
 		boolean four = false;
 		int count = 0;
 		for (int i = 0; i < playerHand.size(); i++) {
@@ -91,7 +96,9 @@ public class Player {
 		return four;
 	}
 
+	// Three of a kind and a pair.
 	public boolean isFullHouse(ArrayList<Card> playerHand) {
+		// must contain both a pair and a triple
 		boolean fullhouse = false;
 		boolean onep = false;
 		int count = 0;
@@ -120,7 +127,9 @@ public class Player {
 		return fullhouse;
 	}
 
+	// All five cards having the same suit
 	public boolean isFlush(ArrayList<Card> playerHand) {
+		// all cards must be of same suit
 		ArrayList<Card> storeCard = new ArrayList<Card>();
 		boolean flush = false;
 		int count = 0;
@@ -136,7 +145,10 @@ public class Player {
 		return flush;
 	}
 
+	// All 5 cards in consecutive value order
 	public boolean isStraight(ArrayList<Card> playerHand) {
+		// ranks of cards must be exactly consecutive
+		// also accounts for straight where Ace is low
 		ArrayList<Card> storeCard = new ArrayList<Card>();
 		boolean straight = false;
 		int count = 0;
@@ -155,7 +167,9 @@ public class Player {
 		return straight;
 	}
 
+	// Three cards of the same value.
     public boolean isThreeOfAKind(ArrayList<Card> playerHand) {
+		// three of the cards must be of the same rank
 		boolean triple = false;
 		int count = 0;
 		for (int i = 0; i < playerHand.size(); i++) {
@@ -172,6 +186,7 @@ public class Player {
 		return triple;
 	}
 
+	// Two different pairs.
 	public boolean isTwoPair(ArrayList<Card> playerHand) {
 		// must have two pairs of cards of the same rank
 		ArrayList<Card> storeCard = new ArrayList<Card>();
@@ -190,7 +205,9 @@ public class Player {
 		return twop;
 	}
 
+	// Two cards of the same value.
     public boolean isOnePair(ArrayList<Card> playerHand) {
+		// must have two cards of the same rank
         boolean onep = false;
         int count = 0;
         for (int i=0; i<playerHand.size(); i++) {
@@ -199,7 +216,6 @@ public class Player {
                 if ((playerHand.get(i).getRank() == (playerHand.get(j).getRank())) && (i != j))
 					count++;
             }
-
             if (count == 1) {
 				playerHand.set(0, playerHand.get(i));
                 onep = true;
@@ -208,6 +224,7 @@ public class Player {
         return onep;
     }
 
+	// Highest value card.
     public boolean isHighestCard(ArrayList<Card> playerHand) {
 		boolean max = false;
 		Collections.sort(playerHand);
@@ -216,6 +233,8 @@ public class Player {
 		return max;
     }
 
+	// Case where card combination and card rank are the same.
+	// Get highest card instead.
 	public boolean handleTie(ArrayList<Card> handOne, ArrayList<Card> handTwo) {
 		ArrayList<Integer> a = new ArrayList<Integer>();
 		ArrayList<Integer> b = new ArrayList<Integer>();
@@ -228,14 +247,13 @@ public class Player {
 			}
 		}
 		if ((a.get(a.size()-1) > (b.get(b.size()-1)))) {
-			//System.out.println("Player 1 wins.");
 			return true;
 		} else {
-			//System.out.println("Player 2 wins.");
 			return false;
 		}
 	}
 
+	// Read card ranks as strings and return as integers.
 	public int readRank(String cardRank) {
 		switch (cardRank) {
 			case "3": return 3;
