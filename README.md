@@ -9,3 +9,7 @@ in here which takes the rank as a String and returns it as an integer. In hindsi
 ### Game.java
 This is where the game is executed and where the main function can be found. This class reads the user's input and creates two separate hands for player one
 and player two. Methods for evaluation hand combinations can also be found in this class
+
+### Output
+![](images/myoutput.png)
+![](images/solutionoutput.png)
